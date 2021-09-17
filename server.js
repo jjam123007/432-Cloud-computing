@@ -1,11 +1,13 @@
 const express = require("express");
 const axios = require("axios");
 var app = express();
+var morgan = require('morgan')
 const path = require('path');
 
 const SONGKICK_APIKEY = `8404I3RKFBVZxwC1`;
 const FLICKR_APIKEY = `48e902ee2414ce46b20a7d557b1000fc`;
 const FLICKR_SECRET = `11811ac81108a384`;
+app.use(morgan('tiny'))
 
 function getLocationsByInt(lat, lng, per_page) {
   const url = `https://api.songkick.com/api/3.0/search/locations.json?location=geo:${lat},${lng}&apikey=${SONGKICK_APIKEY}&per_page=${per_page}`;

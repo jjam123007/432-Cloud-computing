@@ -1,4 +1,0 @@
-开两个cmd   一个server  一个dev 
-
-    "dev": "vite",
-    "server": "node server",

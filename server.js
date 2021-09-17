@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 var app = express();
+const path = require('path');
 
 const SONGKICK_APIKEY = `8404I3RKFBVZxwC1`;
 const FLICKR_APIKEY = `48e902ee2414ce46b20a7d557b1000fc`;
@@ -34,7 +35,8 @@ const getImg = (name) => {
   });
 };
 
-app.get("/getLocations", function (req, res) {
+
+app.get("/api/getLocations", function (req, res) {
   var { lat, lng, per_page = 10 } = req.query;
   getLocationsByInt(lat, lng, per_page).then((rs) => {
     var data = rs.resultsPage.results.location;
@@ -42,7 +44,7 @@ app.get("/getLocations", function (req, res) {
   });
 });
 
-app.get("/getMarker", function (req, res) {
+app.get("/api/getMarker", function (req, res) {
   var { sk, name } = req.query;
   getMarketBySk(sk).then(async (rs) => {
     var data = rs.resultsPage.results.event
@@ -59,7 +61,7 @@ app.get("/getMarker", function (req, res) {
   });
 });
 
-app.get("/searchName", function (req, res) {
+app.get("/api/searchName", function (req, res) {
   var { geo, name } = req.query;
   getNameMarketByGeo(name).then(async (rs) => {
     var data =
@@ -78,6 +80,11 @@ app.get("/searchName", function (req, res) {
       res.json({ data });
     }, 1500)
   });
+});
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(3001, () => {

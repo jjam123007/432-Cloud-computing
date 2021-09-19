@@ -80,8 +80,8 @@ export default function index() {
                   if (data.displayName) {
                     marker.bindPopup(`
                     <div className="pop">
-                    ${it.imgSrc ? `<img
-                    src=${it.imgSrc}
+                    ${data.imgSrc ? `<img
+                    src=${data.imgSrc}
                     width="100"
                     height="100"
                     alt=""
@@ -97,7 +97,7 @@ export default function index() {
                   `);
                   } else {
                     //if theres no event, set as none
-                    marker.bindPopup(`none`);
+                    marker.bindPopup(`No event in this location`);
                   }
                 });
             });
